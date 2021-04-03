@@ -26,5 +26,19 @@ public class GreetingController {
 		return "bitcoin";
 	}
 
+	@GetMapping("/history")
+	public String history(@RequestParam(name="name", required=false, defaultValue="idk") String name, Model model) {
+
+		ReadJSON js = new ReadJSON();
+
+		try{
+			model.addAttribute("name", js.readFromFile());
+		}
+		catch(Exception e){
+			System.out.print("ERRO");
+		}
+
+		return "history";
+	}
 
 }

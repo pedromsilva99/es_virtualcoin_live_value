@@ -23,7 +23,7 @@ public class ReadJSON {
 		    JSONArray obj = new JSONArray(jsontext); // parse the array
 		    for(int i = 0; i < obj.length(); i++){ // iterate over the array
 		        JSONObject o = obj.getJSONObject(i);
-		        System.out.println(o);
+		        //System.out.println(o);
 		        JSONObject id = o.getJSONObject("bpi");
 		        String coin = o.getString("chartName");
 		        //System.out.println("COIN: " + coin);
@@ -64,6 +64,55 @@ public class ReadJSON {
           //exception handling left as an exercise for the reader
       }
 
+  }
+
+  public static String readFromFile() throws Exception{
+    String a = "";
+    double old = 1;
+    double neww = 0;
+    double dif = 0;
+    double init = 1;
+    boolean ready = false;
+    try {
+      File file = new File("bitcoinHistory.txt");
+
+      BufferedReader br = new BufferedReader(new FileReader(file));
+
+      String st;
+      while ((st = br.readLine()) != null) {
+        //System.out.println(st);
+        a = a + st;
+        st = st.replaceAll("\\s+", "");
+        //System.out.println(st);
+        String substr = st.substring(18, 29);
+        //System.out.println(substr);
+        substr = substr.replace(",", "");
+        //System.out.println(substr);
+        if(ready){
+          neww = Double.parseDouble(substr);
+          dif = neww * 100 / old - 100;
+          String substr2 = String.valueOf(dif);
+          substr2 = substr2.substring(0, 6);
+          a = a + "   Change: " + substr2 + "||||||||| \n";
+        }
+        else {
+          init = Double.parseDouble(substr);
+        }
+        a = a + "||||||||| \n";
+        old = Double.parseDouble(substr);
+        ready = true;
+      }
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
+
+    dif = neww * 100 / init - 100;
+    String substr3 = String.valueOf(dif);
+    substr3 = substr3.substring(0, 6);
+    a = a + "   Change since the beggining: " + substr3 + " \n";
+
+    return a;
   }
 
   public static String getJSON(String url) {

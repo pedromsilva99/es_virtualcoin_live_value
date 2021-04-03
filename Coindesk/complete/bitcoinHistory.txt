@@ -1,0 +1,6 @@
+Coin: Bitcoin   Value: 50,333.3309   Time: Apr 3, 2021 03:41:00 UTC
+Coin: Bitcoin   Value: 50,357.5911   Time: Apr 3, 2021 03:52:00 UTC
+Coin: Bitcoin   Value: 50,357.5911   Time: Apr 3, 2021 03:52:00 UTC
+Coin: Bitcoin   Value: 50,376.8000   Time: Apr 3, 2021 03:57:00 UTC
+Coin: Bitcoin   Value: 50,371.1846   Time: Apr 3, 2021 03:58:00 UTC
+Coin: Bitcoin   Value: 50,379.0450   Time: Apr 3, 2021 04:04:00 UTC

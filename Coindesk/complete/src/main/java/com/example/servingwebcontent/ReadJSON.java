@@ -18,24 +18,52 @@ public class ReadJSON {
     String jsontext = '[' + getJSON("https://api.coindesk.com/v1/bpi/currentprice.json") + ']';
 		//System.out.println(jsontext);
     String euroValue = "";
+    String timezone = "";
 		try {
 		    JSONArray obj = new JSONArray(jsontext); // parse the array
 		    for(int i = 0; i < obj.length(); i++){ // iterate over the array
 		        JSONObject o = obj.getJSONObject(i);
-		        //System.out.println(o);
+		        System.out.println(o);
 		        JSONObject id = o.getJSONObject("bpi");
 		        String coin = o.getString("chartName");
-		        System.out.println("COIN: " + coin);
+		        //System.out.println("COIN: " + coin);
 		        JSONObject id2 = id.getJSONObject("EUR");
 		        //System.out.println("COIN: " + id2);
 		        euroValue = id2.getString("rate");
-		        System.out.print("EURO: " + euroValue);
+		        //System.out.print("EURO: " + euroValue);
+            JSONObject id3 = o.getJSONObject("time");
+            timezone = id3.getString("updated");
+            System.out.print(timezone);
+            writeInFile(coin, euroValue, timezone);
 
 		    }
 		} catch (JSONException e){
 		    e.printStackTrace();
 		}
     return euroValue;
+  }
+
+  public static void writeInFile(String coin, String value, String data){
+      // try {
+      //   String str = "Hello";
+      //   BufferedWriter writer = new BufferedWriter(new FileWriter("bitcoinHistory.txt"));
+      //   writer.write("Coin: " + coin + "   Value: " + value + "   Time: " + data);
+      //   writer.close();
+      //   System.out.println("Successfully wrote to the file.");
+      // } catch (IOException e) {
+      //   System.out.println("An error occurred.");
+      //   e.printStackTrace();
+      // }
+      try(FileWriter fw = new FileWriter("bitcoinHistory.txt", true);
+          BufferedWriter bw = new BufferedWriter(fw);
+          PrintWriter out = new PrintWriter(bw))
+      {
+          out.println("Coin: " + coin + "   Value: " + value + "   Time: " + data);
+          //more code
+      } catch (IOException e) {
+          //exception handling left as an exercise for the reader
+      }
+
   }
 
   public static String getJSON(String url) {

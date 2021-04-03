@@ -26,4 +26,5 @@ public class GreetingController {
 		return "bitcoin";
 	}
 
+
 }

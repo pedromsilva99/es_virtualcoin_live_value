@@ -24,7 +24,7 @@ public class GreetingController {
 		ReadJSON js = new ReadJSON();
 
 		try{
-			model.addAttribute("name", js.readFromFile());
+			model.addAttribute("name", js.readFromJSON());
 		}
 		catch(Exception e){
 			System.out.print("ERRO");

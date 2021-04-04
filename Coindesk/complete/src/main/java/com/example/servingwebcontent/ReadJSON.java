@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import javax.net.ssl.HttpsURLConnection;
+import java.util.ArrayList;
 
 public class ReadJSON {
 
@@ -66,8 +67,10 @@ public class ReadJSON {
 
   }
 
-  public static String readFromFile() throws Exception{
-    String a = "";
+  public static String[] readFromFile() throws Exception{
+    String [] retArray;
+    ArrayList<String> retList = new ArrayList<String>();
+    String line = "";
     double old = 1;
     double neww = 0;
     double dif = 0;
@@ -80,25 +83,28 @@ public class ReadJSON {
 
       String st;
       while ((st = br.readLine()) != null) {
-        //System.out.println(st);
-        a = a + st;
+        line = st;
         st = st.replaceAll("\\s+", "");
-        //System.out.println(st);
+
         String substr = st.substring(18, 29);
-        //System.out.println(substr);
+
         substr = substr.replace(",", "");
-        //System.out.println(substr);
+
         if(ready){
           neww = Double.parseDouble(substr);
           dif = neww * 100 / old - 100;
           String substr2 = String.valueOf(dif);
-          substr2 = substr2.substring(0, 6);
-          a = a + "   Change: " + substr2 + "||||||||| \n";
+          if (dif > 0)
+            substr2 = "+" + substr2;
+          substr2 = substr2.substring(0, 7);
+
+
+          retList.add(line + " <-> Change: " + substr2 + "%");
         }
         else {
           init = Double.parseDouble(substr);
+          retList.add(line);
         }
-        a = a + "||||||||| \n";
         old = Double.parseDouble(substr);
         ready = true;
       }
@@ -109,10 +115,21 @@ public class ReadJSON {
 
     dif = neww * 100 / init - 100;
     String substr3 = String.valueOf(dif);
-    substr3 = substr3.substring(0, 6);
-    a = a + "   Change since the beggining: " + substr3 + " \n";
+    if (dif > 0)
+      substr3 = "+" + substr3;
+    substr3 = substr3.substring(0, 7);
 
-    return a;
+    retList.add("Change since the beggining: " + substr3 + "%");
+
+
+    retArray = new String[retList.size()];
+    int i = 0;
+    for (String strr : retList) {
+      retArray[i] = strr;
+      i += 1;
+    }
+
+    return retArray;
   }
 
   public static String getJSON(String url) {

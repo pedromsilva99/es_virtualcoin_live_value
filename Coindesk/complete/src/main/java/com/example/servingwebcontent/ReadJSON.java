@@ -16,11 +16,12 @@ public class ReadJSON {
   // Gson gson = new Gson();
 
 
-  public static String getPrice() {
+  public static String [] getBtcInfo() {
     String jsontext = '[' + getJSON("https://api.coindesk.com/v1/bpi/currentprice.json") + ']';
 		//System.out.println(jsontext);
     String euroValue = "";
     String timezone = "";
+    String [] retVal = new String[2];
 		try {
 		    JSONArray obj = new JSONArray(jsontext); // parse the array
 		    for(int i = 0; i < obj.length(); i++){ // iterate over the array
@@ -42,7 +43,9 @@ public class ReadJSON {
 		} catch (JSONException e){
 		    e.printStackTrace();
 		}
-    return euroValue;
+    retVal[0] = euroValue;
+    retVal[1] = timezone;
+    return retVal;
   }
 
   public static void writeInJSON(String coin, String value, String data){
@@ -62,19 +65,19 @@ public class ReadJSON {
     System.out.println(obj);
   }
 
-  // public static void writeInFile(String coin, String value, String data){
-  //
-  //     try(FileWriter fw = new FileWriter("bitcoinHistory.txt", true);
-  //         BufferedWriter bw = new BufferedWriter(fw);
-  //         PrintWriter out = new PrintWriter(bw))
-  //     {
-  //         out.println("Coin: " + coin + "   Value: " + value + "   Time: " + data);
-  //         //more code
-  //     } catch (IOException e) {
-  //         //exception handling left as an exercise for the reader
-  //     }
-  //
-  // }
+  public static void writeInFile(String coin, String value, String data){
+
+      try(FileWriter fw = new FileWriter("bitcoinHistory.txt", true);
+          BufferedWriter bw = new BufferedWriter(fw);
+          PrintWriter out = new PrintWriter(bw))
+      {
+          out.println("Coin: " + coin + "   Value: " + value + "   Time: " + data);
+          //more code
+      } catch (IOException e) {
+          //exception handling left as an exercise for the reader
+      }
+
+  }
 
 
   public static String[] readFromJSON() throws Exception{

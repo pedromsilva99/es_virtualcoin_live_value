@@ -12,9 +12,10 @@ public class GreetingController {
 	public String bitcoin(@RequestParam(name="name", required=false, defaultValue="idk") String name, Model model) {
 
 		ReadJSON js = new ReadJSON();
+		String [] str = js.getBtcInfo();
 
-
-		model.addAttribute("name", js.getPrice());
+		model.addAttribute("name", str[0]);
+		model.addAttribute("date", str[1]);
 		return "bitcoin";
 	}
 

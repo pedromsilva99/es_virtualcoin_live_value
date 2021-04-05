@@ -23,6 +23,9 @@
       </ul>
     </div>
   </nav>
-    <p th:text="'Bitcoin value: ' + ${name}" />
+    <div class="container">
+      <h3 th:text="'Bitcoin value: ' + ${name} + '€'" />
+      <h5 th:text="'Date: ' + ${date}" />
+    </div>
 </body>
 </html>

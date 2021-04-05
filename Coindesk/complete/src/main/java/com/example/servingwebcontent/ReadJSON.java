@@ -117,9 +117,15 @@ public class ReadJSON {
 
           if (dif > 0)
             percentage = "+" + percentage;
-          percentage = percentage.substring(0, 7);
+          if (percentage.length() >= 8)
+            percentage = percentage.substring(0, 7);
 
-          display = "Coin: " + name + "\tPrice: " + price + "€\tDate: " + data + "<-> Change: " + percentage + "%";
+          if (dif >= 1 || dif <= -1) {
+            display = "Coin: " + name + "\tPrice: " + price + "€\tDate: " + data + "<-> Change: " + percentage + "%  ---> High variation!" ;
+          } else {
+            display = "Coin: " + name + "\tPrice: " + price + "€\tDate: " + data + "<-> Change: " + percentage + "%";
+          }
+
           retList.add(display);
 
         }

@@ -3,10 +3,30 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
 </head>
 <body>
-  <ul th:each="price : ${name}">
-    <li th:text="${price}"></li>
-  </ul>
+  <nav class="navbar-expand-lg navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Bitcoin real time value</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/bitcoin">Current Price</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/history">History<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <ul class="list-group" th:each="price : ${name}">
+      <li class="list-group-item list-group-item-dark" th:text="${price}"></li>
+    </ul>
+  </div>
 </body>
 </html>

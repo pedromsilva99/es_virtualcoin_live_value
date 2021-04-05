@@ -143,70 +143,70 @@ public class ReadJSON {
   }
 
 
-  // public static String[] readFromFile() throws Exception{
-  //   String [] retArray;
-  //   ArrayList<String> retList = new ArrayList<String>();
-  //   String line = "";
-  //   double old = 1;
-  //   double neww = 0;
-  //   double dif = 0;
-  //   double init = 1;
-  //   boolean ready = false;
-  //   try {
-  //     File file = new File("bitcoinHistory.txt");
-  //
-  //     BufferedReader br = new BufferedReader(new FileReader(file));
-  //
-  //     String st;
-  //     while ((st = br.readLine()) != null) {
-  //       line = st;
-  //       st = st.replaceAll("\\s+", "");
-  //
-  //       String substr = st.substring(18, 29);
-  //
-  //       substr = substr.replace(",", "");
-  //
-  //       if(ready){
-  //         neww = Double.parseDouble(substr);
-  //         dif = neww * 100 / old - 100;
-  //         String substr2 = String.valueOf(dif);
-  //         if (dif > 0)
-  //           substr2 = "+" + substr2;
-  //         substr2 = substr2.substring(0, 7);
-  //
-  //
-  //         retList.add(line + " <-> Change: " + substr2 + "%");
-  //       }
-  //       else {
-  //         init = Double.parseDouble(substr);
-  //         retList.add(line);
-  //       }
-  //       old = Double.parseDouble(substr);
-  //       ready = true;
-  //     }
-  //   }
-  //   catch (Exception e){
-  //     e.printStackTrace();
-  //   }
-  //
-  //   dif = neww * 100 / init - 100;
-  //   String substr3 = String.valueOf(dif);
-  //   if (dif > 0)
-  //     substr3 = "+" + substr3;
-  //   substr3 = substr3.substring(0, 7);
-  //
-  //   retList.add("Change since the beggining: " + substr3 + "%");
-  //
-  //
-  //   retArray = new String[retList.size()];
-  //   int i = 0;
-  //   for (String strr : retList) {
-  //     retArray[i] = strr;
-  //     i += 1;
-  //   }
-  //
-  //   return retArray;
-  // }
+  public static String[] readFromFile() throws Exception{
+    String [] retArray;
+    ArrayList<String> retList = new ArrayList<String>();
+    String line = "";
+    double old = 1;
+    double neww = 0;
+    double dif = 0;
+    double init = 1;
+    boolean ready = false;
+    try {
+      File file = new File("bitcoinHistory.txt");
+
+      BufferedReader br = new BufferedReader(new FileReader(file));
+
+      String st;
+      while ((st = br.readLine()) != null) {
+        line = st;
+        st = st.replaceAll("\\s+", "");
+
+        String substr = st.substring(18, 29);
+
+        substr = substr.replace(",", "");
+
+        if(ready){
+          neww = Double.parseDouble(substr);
+          dif = neww * 100 / old - 100;
+          String substr2 = String.valueOf(dif);
+          if (dif > 0)
+            substr2 = "+" + substr2;
+          substr2 = substr2.substring(0, 7);
+
+
+          retList.add(line + " <-> Change: " + substr2 + "%");
+        }
+        else {
+          init = Double.parseDouble(substr);
+          retList.add(line);
+        }
+        old = Double.parseDouble(substr);
+        ready = true;
+      }
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
+
+    dif = neww * 100 / init - 100;
+    String substr3 = String.valueOf(dif);
+    if (dif > 0)
+      substr3 = "+" + substr3;
+    substr3 = substr3.substring(0, 7);
+
+    retList.add("Change since the beggining: " + substr3 + "%");
+
+
+    retArray = new String[retList.size()];
+    int i = 0;
+    for (String strr : retList) {
+      retArray[i] = strr;
+      i += 1;
+    }
+
+    return retArray;
+  }
 
   public static String getJSON(String url) {
         HttpsURLConnection con = null;

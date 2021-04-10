@@ -1,5 +1,6 @@
 package com.example.servingwebcontent;
 
+import java.util.*;
 import java.io.*;
 import java.net.*;
 // import com.google.gson.Gson;
@@ -48,7 +49,23 @@ public class ReadJSON {
     return retVal;
   }
 
-  public static void writeInJSON(String coin, String value, String data){
+  public static void writeInJSON(String coin, String value, String data) {
+
+    try {
+      String line;
+      File file = new File("myJSON.json");
+      BufferedReader br = new BufferedReader(new FileReader(file));
+
+      while ((line = br.readLine()) != null) {
+
+        JSONObject o = new JSONObject(line);
+        String date = o.getString("data");
+        if (date.equals(data)) return;
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+
     JSONObject obj = new JSONObject();
     obj.put("data", data);
     obj.put("name", coin);
@@ -65,18 +82,43 @@ public class ReadJSON {
     System.out.println(obj);
   }
 
-  public static void writeInFile(String coin, String value, String data){
 
-      try(FileWriter fw = new FileWriter("bitcoinHistory.txt", true);
-          BufferedWriter bw = new BufferedWriter(fw);
-          PrintWriter out = new PrintWriter(bw))
-      {
-          out.println("Coin: " + coin + "   Value: " + value + "   Time: " + data);
-          //more code
-      } catch (IOException e) {
-          //exception handling left as an exercise for the reader
+  public static String[] orderByPrice() throws Exception {
+
+    String [] retArray;
+    String [] array = new String[3];
+    ArrayList<String> allValues = new ArrayList<String>();
+    String line;
+
+    try {
+      File file = new File("myJSON.json");
+      BufferedReader br = new BufferedReader(new FileReader(file));
+
+      while ((line = br.readLine()) != null) {
+
+        JSONObject o = new JSONObject(line);
+        array[0] = o.getString("price").replace(",", "");
+        array[1] = o.getString("data");
+        array[2] = o.getString("name");
+        allValues.add(array[0]+"/"+array[1]+"/"+array[2]);
+        // allValues.add(array);
+        // System.out.println(array[0] + " - " + array[1] + " - " + array[2]);
       }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
+    Collections.sort(allValues);
+
+    retArray = new String[allValues.size()];
+
+    int i = 0;
+    for (String strr : allValues) {
+      array = strr.split("/");
+      retArray[i] = "Coin: " + array[2] + "\tPrice: " + array[0] + "€\tDate: " + array[1];
+      i += 1;
+    }
+    return retArray;
   }
 
 

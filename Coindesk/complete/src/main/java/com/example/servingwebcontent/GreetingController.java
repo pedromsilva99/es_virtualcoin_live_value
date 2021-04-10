@@ -37,6 +37,20 @@ public class GreetingController {
 		return "history";
 	}
 
+	@GetMapping("/history_by_price")
+	public String history_by_price(@RequestParam(name="name", required=false, defaultValue="idk") String name, Model model) {
+
+		ReadJSON js = new ReadJSON();
+
+		try{
+			model.addAttribute("name", js.orderByPrice());
+		}
+		catch(Exception e){
+			System.out.print("ERRO");
+		}
+		return "history";
+	}
+
 	@Scheduled(fixedRate = 60000)
 	public void reportCurrentTime() {
 		ReadJSON js = new ReadJSON();
@@ -46,6 +60,5 @@ public class GreetingController {
 		catch(Exception e){
 			System.out.print("ERRO");
 		}
-
 	}
 }

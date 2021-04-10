@@ -23,7 +23,10 @@
       </ul>
     </div>
   </nav>
+
   <div class="container">
+    <button><a href="/history_by_price">Order by price</a></button>
+    <button><a href="/history">Order by date</a></button>
     <ul class="list-group" th:each="price : ${name}">
       <li class="list-group-item list-group-item-dark" th:text="${price}"></li>
     </ul>

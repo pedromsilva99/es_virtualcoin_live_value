@@ -51,7 +51,7 @@ public class GreetingController {
 		return "history";
 	}
 
-	@Scheduled(fixedRate = 60000)
+	@Scheduled(fixedRate = 30000)
 	public void reportCurrentTime() {
 		ReadJSON js = new ReadJSON();
 		try{

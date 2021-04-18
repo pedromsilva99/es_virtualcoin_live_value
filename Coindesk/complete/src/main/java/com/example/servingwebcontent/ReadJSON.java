@@ -22,14 +22,15 @@ public class ReadJSON {
 		//System.out.println(jsontext);
     String euroValue = "";
     String timezone = "";
-    String [] retVal = new String[2];
+    String coin = "";
+    String [] retVal = new String[3];
 		try {
 		    JSONArray obj = new JSONArray(jsontext); // parse the array
 		    for(int i = 0; i < obj.length(); i++){ // iterate over the array
 		        JSONObject o = obj.getJSONObject(i);
 		        //System.out.println(o);
 		        JSONObject id = o.getJSONObject("bpi");
-		        String coin = o.getString("chartName");
+		        coin = o.getString("chartName");
 		        //System.out.println("COIN: " + coin);
 		        JSONObject id2 = id.getJSONObject("EUR");
 		        //System.out.println("COIN: " + id2);
@@ -38,7 +39,7 @@ public class ReadJSON {
             JSONObject id3 = o.getJSONObject("time");
             timezone = id3.getString("updated");
             System.out.print(timezone);
-            writeInJSON(coin, euroValue, timezone);
+            // writeInJSON(coin, euroValue, timezone);
 
 		    }
 		} catch (JSONException e){
@@ -46,6 +47,7 @@ public class ReadJSON {
 		}
     retVal[0] = euroValue;
     retVal[1] = timezone;
+    retVal[2] = coin;
     return retVal;
   }
 
@@ -121,6 +123,35 @@ public class ReadJSON {
     return retArray;
   }
 
+  public static Coin[] readCoins() throws Exception {
+    Coin [] allCoins;
+    ArrayList<Coin> retList = new ArrayList<Coin>();
+    String line;
+
+    try {
+      File file = new File("myJSON.json");
+      BufferedReader br = new BufferedReader(new FileReader(file));
+
+      while ((line = br.readLine()) != null) {
+        JSONObject o = new JSONObject(line);
+        String price = o.getString("price");
+        String data = o.getString("data");
+        String name = o.getString("name");
+        retList.add(new Coin(name, price, data));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+
+      allCoins = new Coin[retList.size()];
+      int i = 0;
+      for (Coin coin : retList) {
+        allCoins[i] = coin;
+        i += 1;
+      }
+    return allCoins;
+    }
 
   public static String[] readFromJSON() throws Exception{
 

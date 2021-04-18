@@ -2,9 +2,10 @@ package com.example.servingwebcontent;
 
 import java.util.List;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CoinRepository extends CrudRepository<Coin, Long> {
+public interface CoinRepository extends JpaRepository<Coin, Long> {
 
   List<Coin> findByPrice(String price);
 

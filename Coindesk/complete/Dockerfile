@@ -1,4 +1,7 @@
-FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM java:8-jdk-alpine
+
+ADD target/serving-web-content-0.0.1-SNAPSHOT.jar docker-spring-boot.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","docker-spring-boot.jar"]

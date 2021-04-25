@@ -42,7 +42,8 @@ public class GreetingController {
 		model.addAttribute("date", str[1]);
 		model.addAttribute("name", str[2]);
 
-		repository.save(new Coin(str[2], str[0], str[1]));
+		//repository.save(new Coin(str[2], str[0], str[1]));
+		js.writeInJSON(str[2], str[0], str[1]);
 		return "bitcoin";
 	}
 
@@ -66,7 +67,7 @@ public class GreetingController {
 			// for (Coin coin: c) {
 			// 	repository.save(coin);
 			// }
-			model.addAttribute("name", repository.findAll());
+			model.addAttribute("name", js.readFromJSON());
 		}
 		catch(Exception e){
 			System.out.print("ERRO");

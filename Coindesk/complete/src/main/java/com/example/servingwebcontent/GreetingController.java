@@ -1,5 +1,10 @@
 package com.example.servingwebcontent;
 
+// import com.example.kafka.Producer;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -9,12 +14,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+// @RequestMapping(value = "/kafka")
 @Controller
 @Component
 public class GreetingController {
 
+	// private final Producer producer;
+	//
 	@Autowired
 	CoinRepository repository;
+ 	// GreetingController(Producer producer) {
+ 	// 		this.producer = producer;
+ 	// }
+
+	 // @PostMapping(value = "/publish")
+	 // public void sendMessageToKafkaTopic(@RequestParam("message") String message) {
+		// 	 this.producer.sendMessage(message);
+	 // }
 
 	@GetMapping("/bitcoin")
 	public String bitcoin(@RequestParam(name="name", required=false, defaultValue="idk") String name, Model model) {
@@ -46,7 +62,7 @@ public class GreetingController {
 		//     }
 		try{
 			// Coin [] c = js.readCoins();
-
+			//
 			// for (Coin coin: c) {
 			// 	repository.save(coin);
 			// }
